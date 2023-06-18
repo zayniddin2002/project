@@ -1,369 +1,482 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <style>
+            body {
+                background-color: #ecedee;
+            }
 
-<head>
-    <style>
-        body {
-            background-color: #ecedee
-        }
+            .card {
+                border: none;
+                overflow: hidden;
+            }
 
-        .card {
-            border: none;
-            overflow: hidden
-        }
+            .thumbnail_images ul {
+                list-style: none;
+                justify-content: center;
+                display: flex;
+                align-items: center;
+                margin-top: 10px;
+            }
 
-        .thumbnail_images ul {
-            list-style: none;
-            justify-content: center;
-            display: flex;
-            align-items: center;
-            margin-top: 10px
-        }
+            .thumbnail_images ul li {
+                margin: 5px;
+                padding: 10px;
+                border: 2px solid #eee;
+                cursor: pointer;
+                transition: all 0.5s;
+            }
 
-        .thumbnail_images ul li {
-            margin: 5px;
-            padding: 10px;
-            border: 2px solid #eee;
-            cursor: pointer;
-            transition: all 0.5s
-        }
+            .thumbnail_images ul li:hover {
+                border: 2px solid #000;
+            }
 
-        .thumbnail_images ul li:hover {
-            border: 2px solid #000
-        }
+            .main_image {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-bottom: 1px solid #eee;
+                height: 400px;
+                width: 100%;
+                overflow: hidden;
+            }
 
-        .main_image {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-bottom: 1px solid #eee;
-            height: 400px;
-            width: 100%;
-            overflow: hidden
-        }
+            .heart {
+                height: 29px;
+                width: 29px;
+                background-color: #eaeaea;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
 
-        .heart {
-            height: 29px;
-            width: 29px;
-            background-color: #eaeaea;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center
-        }
+            .content p {
+                font-size: 12px;
+            }
 
-        .content p {
-            font-size: 12px
-        }
+            .ratings span {
+                font-size: 14px;
+                margin-left: 12px;
+            }
 
-        .ratings span {
-            font-size: 14px;
-            margin-left: 12px
-        }
+            .colors {
+                margin-top: 5px;
+            }
 
-        .colors {
-            margin-top: 5px
-        }
+            .colors ul {
+                list-style: none;
+                display: flex;
+                padding-left: 0px;
+            }
 
-        .colors ul {
-            list-style: none;
-            display: flex;
-            padding-left: 0px
-        }
+            .colors ul li {
+                height: 20px;
+                width: 20px;
+                display: flex;
+                border-radius: 50%;
+                margin-right: 10px;
+                cursor: pointer;
+            }
 
-        .colors ul li {
-            height: 20px;
-            width: 20px;
-            display: flex;
-            border-radius: 50%;
-            margin-right: 10px;
-            cursor: pointer
-        }
+            .colors ul li:nth-child(1) {
+                background-color: #6c704d;
+            }
 
-        .colors ul li:nth-child(1) {
-            background-color: #6c704d
-        }
+            .colors ul li:nth-child(2) {
+                background-color: #96918b;
+            }
 
-        .colors ul li:nth-child(2) {
-            background-color: #96918b
-        }
+            .colors ul li:nth-child(3) {
+                background-color: #68778e;
+            }
 
-        .colors ul li:nth-child(3) {
-            background-color: #68778e
-        }
+            .colors ul li:nth-child(4) {
+                background-color: #263f55;
+            }
 
-        .colors ul li:nth-child(4) {
-            background-color: #263f55
-        }
+            .colors ul li:nth-child(5) {
+                background-color: black;
+            }
 
-        .colors ul li:nth-child(5) {
-            background-color: black
-        }
+            .right-side {
+                position: relative;
+            }
 
-        .right-side {
-            position: relative
-        }
+            .search-option {
+                position: absolute;
+                background-color: #000;
+                overflow: hidden;
+                align-items: center;
+                color: #fff;
+                width: 200px;
+                height: 200px;
+                border-radius: 49% 51% 50% 50% / 68% 69% 31% 32%;
+                left: 30%;
+                bottom: -250px;
+                transition: all 0.5s;
+                cursor: pointer;
+            }
 
-        .search-option {
-            position: absolute;
-            background-color: #000;
-            overflow: hidden;
-            align-items: center;
-            color: #fff;
-            width: 200px;
-            height: 200px;
-            border-radius: 49% 51% 50% 50% / 68% 69% 31% 32%;
-            left: 30%;
-            bottom: -250px;
-            transition: all 0.5s;
-            cursor: pointer
-        }
+            .search-option .first-search {
+                position: absolute;
+                top: 20px;
+                left: 90px;
+                font-size: 20px;
+                opacity: 1000;
+            }
 
-        .search-option .first-search {
-            position: absolute;
-            top: 20px;
-            left: 90px;
-            font-size: 20px;
-            opacity: 1000
-        }
+            .search-option .inputs {
+                opacity: 0;
+                transition: all 0.5s ease;
+                transition-delay: 0.5s;
+                position: relative;
+            }
 
-        .search-option .inputs {
-            opacity: 0;
-            transition: all 0.5s ease;
-            transition-delay: 0.5s;
-            position: relative
-        }
+            .search-option .inputs input {
+                position: absolute;
+                top: 200px;
+                left: 30px;
+                padding-left: 20px;
+                background-color: transparent;
+                width: 300px;
+                border: none;
+                color: #fff;
+                border-bottom: 1px solid #eee;
+                transition: all 0.5s;
+                z-index: 10;
+            }
 
-        .search-option .inputs input {
-            position: absolute;
-            top: 200px;
-            left: 30px;
-            padding-left: 20px;
-            background-color: transparent;
-            width: 300px;
-            border: none;
-            color: #fff;
-            border-bottom: 1px solid #eee;
-            transition: all 0.5s;
-            z-index: 10
-        }
+            .search-option .inputs input:focus {
+                box-shadow: none;
+                outline: none;
+                z-index: 10;
+            }
 
-        .search-option .inputs input:focus {
-            box-shadow: none;
-            outline: none;
-            z-index: 10
-        }
+            .search-option:hover {
+                border-radius: 0px;
+                width: 100%;
+                left: 0px;
+            }
 
-        .search-option:hover {
-            border-radius: 0px;
-            width: 100%;
-            left: 0px
-        }
+            .search-option:hover .inputs {
+                opacity: 1;
+            }
 
-        .search-option:hover .inputs {
-            opacity: 1
-        }
+            .search-option:hover .first-search {
+                left: 27px;
+                top: 25px;
+                font-size: 15px;
+            }
 
-        .search-option:hover .first-search {
-            left: 27px;
-            top: 25px;
-            font-size: 15px
-        }
+            .search-option:hover .inputs input {
+                top: 20px;
+            }
 
-        .search-option:hover .inputs input {
-            top: 20px
-        }
+            .search-option .share {
+                position: absolute;
+                right: 20px;
+                top: 22px;
+            }
 
-        .search-option .share {
-            position: absolute;
-            right: 20px;
-            top: 22px
-        }
+            .buttons .btn {
+                height: 50px;
+                width: 150px;
+                border-radius: 0px !important;
+            }
+        </style>
+        <meta charset="utf-8" />
+        <meta charset="utf-8" />
+        <title>Booking uz</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <meta
+            content="booking, dacha, tashkent, dala hovli, dala, hovli, dalahovli"
+            name="keywords"
+        />
+        <meta
+            content="Dala hovli ijaraga olish uchun mo'ljallangan onlayn platforma"
+            name="description"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/img/apple-touch-icon.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/img/favicon-32x32.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/img/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/img/site.webmanifest" />
+        <link
+            rel="mask-icon"
+            href="/img/safari-pinned-tab.svg"
+            color="#5bbad5"
+        />
 
-        .buttons .btn {
-            height: 50px;
-            width: 150px;
-            border-radius: 0px !important
-        }
-    </style>
-    <meta charset="utf-8">
-    <title>Makaan - Real Estate HTML Template</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Inter:wght@700;800&display=swap"
+            rel="stylesheet"
+        />
 
-    <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+            rel="stylesheet"
+        />
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+            rel="stylesheet"
+        />
 
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Inter:wght@700;800&display=swap"
-          rel="stylesheet">
+        <link href="/lib/animate/animate.min.css" rel="stylesheet" />
+        <link
+            href="/lib/owlcarousel/assets/owl.carousel.min.css"
+            rel="stylesheet"
+        />
 
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+        <link href="/css/bootstrap.min.css" rel="stylesheet" />
 
-    <!-- Libraries Stylesheet -->
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+        <link href="/css/style.css" rel="stylesheet" />
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                var username = document.cookie.replace(
+                    /(?:(?:^|.*;\s*)username\s*\=\s*([^;]*).*$)|^.*$/,
+                    "$1",
+                );
+                var loginBlock = document.querySelector(".navbar-nav");
+                var welcomeBlock = document.querySelector(".welcome-section");
 
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+                if (username) {
+                    loginBlock.style.display = "none";
+                    welcomeBlock.style.display = "block";
+                    welcomeBlock.innerHTML = username + "! 👋🏻";
+                }
+            });
+        </script>
+    </head>
 
-    <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
-</head>
-
-<body>
-<div class="container-xxl bg-white p-0">
-    <!-- Spinner Start -->
-    <div id="spinner"
-         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-    </div>
-    <!-- Spinner End -->
-
-
-    <!-- Navbar Start -->
-    <div class="container-fluid nav-bar bg-transparent">
-        <nav class="navbar navbar-expand-lg bg-white navbar-light py-0 px-4">
-            <a href="index.html" class="navbar-brand d-flex align-items-center text-center">
-                <div class="icon p-2 me-2">
-                    <img class="img-fluid" src="img/icon-deal.png" alt="Icon" style="width: 30px; height: 30px;">
+    <body>
+        <div class="container-xxl bg-white p-0">
+            <div
+                id="spinner"
+                class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
+            >
+                <div
+                    class="spinner-border text-primary"
+                    style="width: 3rem; height: 3rem"
+                    role="status"
+                >
+                    <span class="sr-only">Loading...</span>
                 </div>
-                <h1 class="m-0 text-primary">Makaan</h1>
-            </a>
-            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <a href="register.html" class="btn btn-outline-primary">Register</a>
-                <a href="login.html" class="btn btn-primary px-3 d-none d-lg-flex">Login</a>
-
             </div>
-        </nav>
-    </div>
-    <!-- Navbar End -->
-    <div class="container mt-5 mb-5">
-        <div class="card">
-            <div class="row g-0">
-                <div class="col-md-6 border-end">
-                    <div class="d-flex flex-column justify-content-center">
-                        <div class="main_image"><img src="img/property-3.jpg" id="main_product_image"
-                                                     width="100%"></div>
-                        <div class="thumbnail_images">
-                            <ul id="thumbnail">
-                                <li><img onclick="changeImage(this)" src="img/property-3.jpg" width="70">
-                                </li>
-                                <li><img onclick="changeImage(this)" src="img/property-3.jpg" width="70">
-                                </li>
-                                <li><img onclick="changeImage(this)" src="img/property-3.jpg" width="70">
-                                </li>
-                                <li><img onclick="changeImage(this)" src="img/property-3.jpg" width="70">
-                                </li>
-                            </ul>
+            <div class="container-fluid nav-bar bg-transparent sticky-top">
+                <nav
+                    class="navbar navbar-expand-lg bg-white navbar-light py-0 px-4"
+                >
+                    <a
+                        href="/"
+                        class="navbar-brand d-flex align-items-center text-center"
+                    >
+                        <div class="icon p-2 me-2">
+                            <img
+                                class="img-fluid2"
+                                src="/img/logo.png"
+                                alt="Icon"
+                                style="width: 80px"
+                            />
                         </div>
+                    </a>
+                    <button
+                        type="button"
+                        class="navbar-toggler"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarCollapse"
+                    >
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div
+                        class="collapse navbar-collapse justify-content-end"
+                        id="navbarCollapse"
+                    >
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a href="/login" class="btn btn-primary px-3"
+                                    >Kirish</a
+                                >
+                            </li>
+                            <li class="nav-item">
+                                <a href="/register" class="btn btn-text-primary"
+                                    >Ro'yxatdan o'tish</a
+                                >
+                            </li>
+                        </ul>
+                        <a href="/logout" class="link">
+                            <h5
+                                class="welcome-section"
+                                style="text-transform: capitalize"
+                            ></h5>
+                        </a>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="p-3 right-side">
-                        <div class="d-flex justify-content-between align-items-center"><h3>IIlana</h3></div>
-                        <div class="mt-2 pr-3 content"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                            do eiusmod tempor incididunt ut labore et dolore magna aliqua</p></div>
-                        <h3>$430.99</h3>
-                        <div class="ratings d-flex flex-row align-items-center">
-                            <div class="d-flex flex-row"><i class='bx bxs-star'></i> <i class='bx bxs-star'></i> <i
-                                    class='bx bxs-star'></i> <i class='bx bxs-star'></i> <i class='bx bx-star'></i>
+                </nav>
+            </div>
+            <div class="container mt-5 mb-5">
+                <div class="card">
+                    <div class="row g-0">
+                        <div class="col-md-6 border-end">
+                            <div
+                                class="d-flex flex-column justify-content-center"
+                            >
+                                <div class="main_image">
+                                    <img
+                                        src="<%= product.img.split('public')[1] %>"
+                                        id="main_product_image"
+                                        width="100%"
+                                    />
+                                </div>
                             </div>
-                            <span>441 reviews</span></div>
-                        <div class="buttons d-flex flex-row mt-5 gap-3">
-                            <button class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">+998933434332</button>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 right-side">
+                                <div
+                                    class="d-flex justify-content-between align-items-center"
+                                >
+                                    <h3><%= product.name %></h3>
+                                </div>
+                                <div
+                                    class="mt-2 pr-3 content"
+                                    style="font-size: 24px"
+                                >
+                                    Address: <%= product.address %>
+                                    <br />
+
+                                    Xona soni: <%= product.rooms %> ta
+                                    <br />
+
+                                    Umumiy maydoni: <%= product.area %> m<sup
+                                        >2</sup
+                                    >
+                                </div>
+                                <h3 style="margin-top: 100px">
+                                    <%= product.price %> so'm
+                                </h3>
+                                <div
+                                    class="ratings d-flex flex-row align-items-center"
+                                >
+                                    <div class="d-flex flex-row">
+                                        <i class="bx bxs-star"></i>
+                                        <i class="bx bxs-star"></i>
+                                        <i class="bx bxs-star"></i>
+                                        <i class="bx bxs-star"></i>
+                                        <i class="bx bx-star"></i>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row mt-5 gap-3">
+                                    <i class="fa fa-phone-alt"></i>
+                                    <h6><%= product.tell %></h6>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <!-- Footer Start -->
-    <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
-        <div class="container py-5">
-            <div class="row g-5">
-                <div class="col-lg-3 col-md-6">
-                    <h5 class="text-white mb-4">Get In Touch</h5>
-                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
-                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
-                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
-                    <div class="d-flex pt-2">
-                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
-                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <h5 class="text-white mb-4">Quick Links</h5>
-                    <a class="btn btn-link text-white-50" href="">About Us</a>
-                    <a class="btn btn-link text-white-50" href="">Contact Us</a>
-                    <a class="btn btn-link text-white-50" href="">Our Services</a>
-                    <a class="btn btn-link text-white-50" href="">Privacy Policy</a>
-                    <a class="btn btn-link text-white-50" href="">Terms & Condition</a>
-                </div>
+            <div
+                class="container-fluid bg-dark text-white-50 footer pt-5 mt-5 wow fadeIn"
+                data-wow-delay="0.1s"
+            >
+                <div class="container py-5">
+                    <div
+                        class="row g-5"
+                        style="display: flex; justify-content: space-around"
+                    >
+                        <div class="col-lg-3 col-md-6">
+                            <h5 class="text-white mb-4">Manzillarimiz</h5>
+                            <p class="mb-2">
+                                <i class="fa fa-map-marker-alt me-3"></i
+                                >O'zbekiston, Toshkent sh. 100009
+                            </p>
+                            <p class="mb-2">
+                                <i class="fa fa-phone-alt me-3"></i>+998 99 123
+                                45 67
+                            </p>
+                            <p class="mb-2">
+                                <i class="fa fa-envelope me-3"></i
+                                >info@booking.uz
+                            </p>
+                            <div class="d-flex pt-2">
+                                <a
+                                    class="btn btn-outline-light btn-social"
+                                    href="#"
+                                    ><i class="fab fa-instagram"></i
+                                ></a>
+                                <a
+                                    class="btn btn-outline-light btn-social"
+                                    href="#"
+                                    ><i class="fab fa-facebook-f"></i
+                                ></a>
+                                <a
+                                    class="btn btn-outline-light btn-social"
+                                    href="#"
+                                    ><i class="fab fa-youtube"></i
+                                ></a>
+                                <a
+                                    class="btn btn-outline-light btn-social"
+                                    href="#"
+                                    ><i class="fab fa-telegram"></i
+                                ></a>
+                            </div>
+                        </div>
 
-                <div class="col-lg-3 col-md-6">
-                    <h5 class="text-white mb-4">Newsletter</h5>
-                    <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
-                    <div class="position-relative mx-auto" style="max-width: 400px;">
-                        <input class="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="text"
-                               placeholder="Your email">
-                        <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">
-                            SignUp
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="copyright">
-                <div class="row">
-                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                        &copy; <a class="border-bottom" href="#">Your Site Name</a>, All Right Reserved.
-
-                        <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                        Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
-                    </div>
-                    <div class="col-md-6 text-center text-md-end">
-                        <div class="footer-menu">
-                            <a href="">Home</a>
-                            <a href="">Cookies</a>
-                            <a href="">Help</a>
-                            <a href="">FQAs</a>
+                        <div class="col-lg-3 col-md-6">
+                            <h5 class="text-white mb-4">
+                                So'ngi yangiliklardan habardor bo'ling
+                            </h5>
+                            <p>
+                                So'ngi yangiliklardan doimo xabardor bo'lish
+                                uchun elektron pochtangizni ro'yxatdan
+                                o'tkazing.
+                            </p>
+                            <div
+                                class="position-relative mx-auto"
+                                style="max-width: 400px"
+                            >
+                                <input
+                                    class="form-control bg-transparent w-100 py-3 ps-4 pe-5"
+                                    type="text"
+                                    placeholder="Your email"
+                                />
+                                <button
+                                    type="button"
+                                    class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2"
+                                >
+                                    SignUp
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"
+                ><i class="bi bi-arrow-up"></i
+            ></a>
         </div>
-    </div>
-    <!-- Footer End -->
 
-
-    <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
-</div>
-
-<!-- JavaScript Libraries -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="lib/wow/wow.min.js"></script>
-<script src="lib/easing/easing.min.js"></script>
-<script src="lib/waypoints/waypoints.min.js"></script>
-<script src="lib/owlcarousel/owl.carousel.min.js"></script>
-
-<!-- Template Javascript -->
-<script src="js/main.js"></script>
-</body>
-
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="/lib/wow/wow.min.js"></script>
+        <script src="/lib/easing/easing.min.js"></script>
+        <script src="/lib/waypoints/waypoints.min.js"></script>
+        <script src="/lib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="/js/main.js"></script>
+    </body>
 </html>

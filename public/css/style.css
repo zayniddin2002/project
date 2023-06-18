@@ -1,6 +1,6 @@
 /********** Template CSS **********/
 :root {
-    --primary: #00B98E;
+    --primary: rgb(73,112,186);
     --secondary: #FF6922;
     --light: #EFFDF5;
     --dark: #0E2E50;
@@ -70,7 +70,6 @@
 /*** Navbar ***/
 .nav-bar {
     position: relative;
-    margin-top: 45px;
     padding: 0 3rem;
     transition: .5s;
     z-index: 9999;
@@ -162,11 +161,7 @@
 
 
 /*** Header ***/
-@media (min-width: 992px) {
-    .header {
-        margin-top: -120px;
-    }
-}
+
 
 .header-carousel .owl-nav {
     position: absolute;
@@ -214,9 +209,6 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: #FFFFFF !important;
-    border-radius: 50px;
-    border: 1px dashed var(--primary) !important;
 }
 
 
